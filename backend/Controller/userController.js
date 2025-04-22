@@ -208,6 +208,7 @@ const getCsvExportUrl = async (sheetLink) => {
     const gid = match[2] || '0'; 
           
     return `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=csv&gid=${gid}`;
+    // https://docs.google.com/spreadsheets/d/1PmCje4J5Ra-CZqAwNB7HoYIbltR5nlaeCKKbjgj6FHw/edit?usp=sharing
 }
 
 exports.uploadSheet = async (req, res) => {
@@ -263,10 +264,11 @@ const fetchAndSaveTasks = async () => {
                 submitDate: task.submitDate,
                 assignTo: assingtoData._id,
                 description: task.description,
-                assingBy: req.user._id // Assuming the user creating the task is in req.user
+                assignBy: req.user._id
                 });
                 await newTask.save();
                 console.log(`Task "${task.taskName}" for ${task.assignTo} saved successfully!`);
+
             } catch (error) {
                 console.error(`Error saving task "${task.taskName}":`, error);
             }
@@ -281,6 +283,8 @@ const fetchAndSaveTasks = async () => {
         }
 
 await fetchAndSaveTasks();
+return res.status(200).json({message: 'saved successfully!'});
+
 
 } catch (error) {
 return res.status(500).json({message: 'Internal server error'});

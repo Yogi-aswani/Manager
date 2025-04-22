@@ -72,7 +72,7 @@ const TaskForm = () => {
   const handleGoogleSheetUpload = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:7080/tasks/uploadFromSheet', {
+      const res = await axios.post('http://localhost:3000/API/uploadFromSheet', {
         sheetUrl: sheetLink
       }, {
         headers: {
